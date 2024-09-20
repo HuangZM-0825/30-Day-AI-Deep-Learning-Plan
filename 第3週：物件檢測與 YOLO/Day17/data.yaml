@@ -1,0 +1,5 @@
+train: D:/Learning_Python/30-Day AI Deep Learning Plan/第3週：物件檢測與 YOLO/Day17/images/train  # 訓練集圖片的路徑
+val: D:/Learning_Python/30-Day AI Deep Learning Plan/第3週：物件檢測與 YOLO/Day17/images/val    # 驗證集圖片的路徑
+
+nc: 2  # 類別的數量
+names: ['Male', 'Female']  # 類別名稱，0 對應 Male，1 對應 Female
