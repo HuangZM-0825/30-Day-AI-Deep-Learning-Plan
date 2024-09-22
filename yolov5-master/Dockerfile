@@ -1,25 +1,42 @@
-# 使用官方 Python 基礎映像
-FROM python:3.9-slim
+# YOLOv5 🚀 by Ultralytics, AGPL-3.0 license
+# Builds ultralytics/yolov5:latest-cpu image on DockerHub https://hub.docker.com/r/ultralytics/yolov5
+# Image is CPU-optimized for ONNX, OpenVINO and PyTorch YOLOv5 deployments
 
-# 設定工作目錄
+# Start FROM Ubuntu image https://hub.docker.com/_/ubuntu
+FROM ubuntu:23.10
+
+# Downloads to user config dir
+ADD https://ultralytics.com/assets/Arial.ttf https://ultralytics.com/assets/Arial.Unicode.ttf /root/.config/Ultralytics/
+
+# Install linux packages
+# g++ required to build 'tflite_support' and 'lap' packages, libusb-1.0-0 required for 'tflite_support' package
+RUN apt update \
+    && apt install --no-install-recommends -y python3-pip git zip curl htop libgl1 libglib2.0-0 libpython3-dev gnupg g++ libusb-1.0-0
+# RUN alias python=python3
+
+# Remove python3.11/EXTERNALLY-MANAGED or use 'pip install --break-system-packages' avoid 'externally-managed-environment' Ubuntu nightly error
+RUN rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
+
+# Install pip packages
+COPY requirements.txt .
+RUN python3 -m pip install --upgrade pip wheel
+RUN pip install --no-cache -r requirements.txt albumentations gsutil notebook \
+    coremltools onnx onnx-simplifier onnxruntime 'openvino-dev>=2023.0' \
+    # tensorflow tensorflowjs \
+    --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Create working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# 安裝必要的系統依賴（包括 Git 和 OpenCV 的依賴）
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+# Copy contents
+COPY . /usr/src/app
 
-# 複製 requirements.txt 到容器中
-COPY ./requirements.txt ./requirements.txt
 
-# 更新 pip 並安裝必要的依賴項
-RUN python -m pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+# Usage Examples -------------------------------------------------------------------------------------------------------
 
-# 複製 yolov5-master 目錄中的所有文件到容器中
-COPY . .
+# Build and Push
+# t=ultralytics/yolov5:latest-cpu && sudo docker build -f utils/docker/Dockerfile-cpu -t $t . && sudo docker push $t
 
-# 設置預設的啟動命令
-CMD ["python", "train.py", "--img", "640", "--batch", "16", "--epochs", "50", "--data", "data.yaml", "--weights", "yolov5s.pt"]
+# Pull and Run
+# t=ultralytics/yolov5:latest-cpu && sudo docker pull $t && sudo docker run -it --ipc=host -v "$(pwd)"/datasets:/usr/src/datasets $t
