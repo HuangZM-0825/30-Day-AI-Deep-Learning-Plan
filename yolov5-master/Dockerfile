@@ -14,9 +14,6 @@ RUN apt update \
     && apt install --no-install-recommends -y python3-pip git zip curl htop libgl1 libglib2.0-0 libpython3-dev gnupg g++ libusb-1.0-0
 # RUN alias python=python3
 
-# Create python alias for python3
-RUN ln -s /usr/bin/python3 /usr/bin/python
-
 # Remove python3.11/EXTERNALLY-MANAGED or use 'pip install --break-system-packages' avoid 'externally-managed-environment' Ubuntu nightly error
 RUN rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
 
