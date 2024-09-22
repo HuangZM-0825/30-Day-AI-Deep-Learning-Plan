@@ -1,11 +1,12 @@
-# 使用官方 Python 基礎映像（這裡使用 Python 3.9，你也可以選擇其他版本）
+# 使用官方 Python 基礎映像
 FROM python:3.9-slim
 
 # 設定工作目錄
 WORKDIR /usr/src/app
 
-# 更新 apt-get 並安裝依賴項（包括 OpenCV 依賴的 libGL）
+# 安裝必要的系統依賴（包括 Git 和 OpenCV 的依賴）
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
