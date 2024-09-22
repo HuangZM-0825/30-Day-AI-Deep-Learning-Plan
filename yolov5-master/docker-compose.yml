@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  yolov5:
+    image: yolov5:latest  # 這是你在Dockerfile中構建的映像名稱
+    build: .
+    volumes:
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/第3週：物件檢測與 YOLO/Day17:/usr/src/app"  # 將本地 Day17 目錄掛載到容器中的 /usr/src/app 目錄
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master/weights:/usr/src/app/weights"  # 將本地 weights 目錄掛載到容器中的 /usr/src/app/weights 目錄
+    tty: true  # 保持容器運行
