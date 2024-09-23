@@ -5,7 +5,8 @@ services:
     image: yolov5:latest  # 這是你在Dockerfile中構建的映像名稱
     build: .
     volumes:
-      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master:/usr/src/app"
-      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/第3週：物件檢測與 YOLO/Day17:/usr/src/app"  # 將本地 Day17 目錄掛載到容器中的 /usr/src/app 目錄
-      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master/weights:/usr/src/app/weights"  # 將本地 weights 目錄掛載到容器中的 /usr/src/app/weights 目錄
+      # 將本地路徑添加到容器路徑裡。左邊是你的本地路徑，右邊是容器中的路徑。
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master:/usr/src/app" # yolov5-master 掛載到容器的根目錄
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/第3週：物件檢測與 YOLO/Day17:/usr/src/app/Day17"  # Day17 掛載到單獨的目錄
     tty: true  # 保持容器運行
+    shm_size: '8gb'  # 增加共享內存大小
