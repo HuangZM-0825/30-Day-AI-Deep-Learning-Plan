@@ -1,5 +1,5 @@
 train: /usr/src/app/Day17/images/train  # 訓練集圖片的路徑
 val: /usr/src/app/Day17/images/val      # 驗證集圖片的路徑
 
-nc: 2  # 類別的數量
-names: ['Male', 'Female']  # 類別名稱，0 對應 Male，1 對應 Female
+nc: 2  # 類別的數量 (例如，1 代表男性, 0 代表女性)
+names: ['Female', 'Male']  # 0 對應 Female，1 對應 Male
