@@ -8,7 +8,7 @@ import torch
 app = FastAPI()
 
 # 載入模型（例如 YOLO 模型）
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')  # 修改為你的模型路徑
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='/app/exp2/weights/best.pt')
 
 # 定義一個端點來接受圖片並進行推理
 @app.post("/predict/")
