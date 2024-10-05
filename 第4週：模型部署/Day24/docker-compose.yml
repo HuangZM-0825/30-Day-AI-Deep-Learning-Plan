@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  fastapi-yolo-app:
+    image: fastapi-yolo-app  # Docker 映像名稱
+    build: .   
+    volumes:
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/第3週：物件檢測與 YOLO/Day17:/app/Day17"  # Day17 目錄
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/第4週：模型部署/Day22:/app/Day22"  # Day22 目錄
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master/runs/train/exp2:/app/exp2"  # exp2 目錄
+      - "D:/Learning_Python/30-Day_AI_Deep_Learning_Plan/yolov5-master:/app/yolov5-master"  # yolov5-master 目錄
+    ports:
+      - "8000:8000"  # 映射主機端口8000到容器端口8000
+    tty: true  # 保持容器運行
