@@ -1,9 +1,0 @@
-version: '3.8'
-
-services:
-  fastapi-yolo-app:
-    image: fastapi-yolo-app  # Docker 映像名稱
-    build: .   
-    ports:
-      - "8000:8000"  # 映射主機端口8000到容器端口8000
-    tty: true  # 保持容器運行
