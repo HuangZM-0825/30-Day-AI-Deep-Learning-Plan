@@ -32,7 +32,7 @@ model.compile(optimizer='adam',
 model.fit(x_train, y_train, epochs=10, batch_size=64)
 
 # 保存模型
-model.save('mnist_cnn_model.h5')
+model.save('Day22_mnist_cnn_model.h5')
 
 # 評估模型
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
